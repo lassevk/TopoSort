@@ -1,3 +1,4 @@
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
 namespace TopoSort.Tests;
 
 public class TopologicalSorterTests : TopologicalSorterTestsBase
@@ -5,15 +6,13 @@ public class TopologicalSorterTests : TopologicalSorterTestsBase
     [Test]
     public void Sort_NullDependencies_ThrowsArgumentNullException()
     {
-        var sorter = new TopologicalSorter();
-        Assert.Throws<ArgumentNullException>(() => sorter.Ordered<int>(null!));
+        Assert.Throws<ArgumentNullException>(() => TopologicalSorter.Ordered<int>(null!));
     }
 
     [Test]
     public void Sort_EmptyDependencies_ReturnsEmpty()
     {
-        var sorter = new TopologicalSorter();
-        IEnumerable<int> result = sorter.Ordered(Enumerable.Empty<TopologicalSortDependency<int>>());
+        IEnumerable<int> result = TopologicalSorter.Ordered(Enumerable.Empty<TopologicalSortDependency<int>>());
         Assert.IsEmpty(result);
     }
 
@@ -21,8 +20,7 @@ public class TopologicalSorterTests : TopologicalSorterTestsBase
     [TestCase(2, 1)]
     public void Sort_OneDependencyWithTestCases_ReturnsSameOrder(int dependency, int dependent)
     {
-        var sorter = new TopologicalSorter();
-        IEnumerable<int> result = sorter.Ordered([
+        IEnumerable<int> result = TopologicalSorter.Ordered([
             new TopologicalSortDependency<int>(dependency, dependent),
         ]);
 
@@ -36,8 +34,7 @@ public class TopologicalSorterTests : TopologicalSorterTestsBase
     [Test]
     public void Sort_CycleDetected_ThrowsInvalidOperationException()
     {
-        var sorter = new TopologicalSorter();
-        Assert.Throws<InvalidOperationException>(() => sorter.Ordered([
+        Assert.Throws<InvalidOperationException>(() => TopologicalSorter.Ordered([
             new TopologicalSortDependency<int>(1, 2),
             new TopologicalSortDependency<int>(2, 3),
             new TopologicalSortDependency<int>(3, 1),
@@ -47,9 +44,8 @@ public class TopologicalSorterTests : TopologicalSorterTestsBase
     [Test]
     public void Sort_SelfCycle_ThrowsInvalidOperationException()
     {
-        var sorter = new TopologicalSorter();
         // We need at least 2 dependencies to trigger SortImpl
-        Assert.Throws<InvalidOperationException>(() => sorter.Ordered([
+        Assert.Throws<InvalidOperationException>(() => TopologicalSorter.Ordered([
             new TopologicalSortDependency<int>(1, 1),
             new TopologicalSortDependency<int>(2, 3),
         ]).ToList());
@@ -58,8 +54,7 @@ public class TopologicalSorterTests : TopologicalSorterTestsBase
     [TestCaseSource(nameof(TestCases))]
     public void Sort_TestCases_ReturnsCorrectOrder(IEnumerable<TopologicalSortDependency<int>> dependencies, int[] expected)
     {
-        var sorter = new TopologicalSorter();
-        var result = sorter.Ordered(dependencies).ToList();
+        var result = TopologicalSorter.Ordered(dependencies).ToList();
 
         Assert.AreEqual(expected, result);
     }

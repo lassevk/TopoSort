@@ -1,8 +1,8 @@
 namespace TopoSort;
 
-internal class TopologicalSorter
+internal static class TopologicalSorter
 {
-    public IEnumerable<T> Ordered<T>(IEnumerable<TopologicalSortDependency<T>> dependencies, IEqualityComparer<T>? comparer = null)
+    public static IEnumerable<T> Ordered<T>(IEnumerable<TopologicalSortDependency<T>> dependencies, IEqualityComparer<T>? equalityComparer = null, IComparer<T>? comparer = null)
         where T : notnull
     {
         if (dependencies is null)
@@ -15,15 +15,15 @@ internal class TopologicalSorter
         {
             0 => []
           , 1 => [all[0].Dependency, all[0].Dependent]
-          , _ => OrderedImpl(all, comparer ?? EqualityComparer<T>.Default)
+          , _ => OrderedImpl(all, equalityComparer ?? EqualityComparer<T>.Default, comparer ?? Comparer<T>.Default)
         };
     }
 
-    private static IEnumerable<T> OrderedImpl<T>(List<TopologicalSortDependency<T>> dependencies, IEqualityComparer<T> comparer)
+    private static IEnumerable<T> OrderedImpl<T>(List<TopologicalSortDependency<T>> dependencies, IEqualityComparer<T> equalityComparer, IComparer<T> comparer)
         where T : notnull
     {
-        var adjacencyList = new Dictionary<T, List<T>>(comparer);
-        var inDegree = new Dictionary<T, int>(comparer);
+        var adjacencyList = new Dictionary<T, List<T>>(equalityComparer);
+        var inDegree = new Dictionary<T, int>(equalityComparer);
 
         foreach (TopologicalSortDependency<T> dep in dependencies)
         {
@@ -57,19 +57,31 @@ internal class TopologicalSorter
         int outputCount = 0;
         while (queue.Count > 0)
         {
-            T u = queue.Dequeue();
-            yield return u;
 
-            outputCount++;
+#if NET8_0_OR_GREATER
+            T[] batch = queue.ToArray();
+            batch.Sort(comparer.Compare);
+#else
+            T[] batch = queue.OrderBy(x => x, comparer).ToArray();
+#endif
 
-            if (adjacencyList.TryGetValue(u, out List<T>? neighbors))
+            queue.Clear();
+
+            foreach (T item in batch)
             {
-                foreach (T v in neighbors)
+                yield return item;
+
+                outputCount++;
+
+                if (adjacencyList.TryGetValue(item, out List<T>? neighbors))
                 {
-                    inDegree[v]--;
-                    if (inDegree[v] == 0)
+                    foreach (T v in neighbors)
                     {
-                        queue.Enqueue(v);
+                        inDegree[v]--;
+                        if (inDegree[v] == 0)
+                        {
+                            queue.Enqueue(v);
+                        }
                     }
                 }
             }
