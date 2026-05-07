@@ -6,7 +6,7 @@ namespace TopoSort;
 public static class TopologicalSortVertexExtensions
 {
     /// <param name="dependent">The vertex value that the edge will point to.</param>
-    /// <typeparam name="T">The type of the vertex values.</typeparam>
+    /// <typeparam name="T">The type of the values of the vertices of the created edge.</typeparam>
     extension<T>(T dependent)
     {
         /// <summary>
@@ -30,7 +30,7 @@ public static class TopologicalSortVertexExtensions
     }
 
     /// <param name="dependency">The vertex value that the edge will originate from.</param>
-    /// <typeparam name="T">The type of the vertex values.</typeparam>
+    /// <typeparam name="T">The type of the values of the vertices of the created edge.</typeparam>
     extension<T>(T dependency)
     {
         /// <summary>
