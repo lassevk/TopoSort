@@ -1,8 +1,10 @@
 # TopoSort
 
-This package adds methods and types for topological sorting, a graph algorithm that determines a valid ordering of vertices in a directed acyclic graph (DAG) such that for every directed edge (u, v), vertex u comes before vertex v in the ordering.
+This package adds methods and types for topological sorting, a graph algorithm that determines a valid ordering of
+vertices in a directed acyclic graph (DAG) such that for every directed edge (u, v), vertex u comes before vertex v
+in the ordering.
 
-It provides a `TopologicalSorter` class that can be used to sort dependencies in a project or any other scenario where dependencies need to be resolved in a specific order.
+The package provides a set of extension methods that does this ordering.
 
 ***Note:*** Portions of this library was added by AI, given that I have an IDE that uses AI-style autocompletion.
 There is *however*, no portion of it not vetted by me.
@@ -46,8 +48,7 @@ var dependencies = [
     new TopologicalSortDependency<int>(3, 4),
     new TopologicalSortDependency<int>(4, 5),
 ];
-var sorter = new TopologicalSorter<int>();
-var sorted = sorter.Sort(dependencies);
+var sorted = dependencies.Ordered().ToList();
 // sorted will be [1, 2, 3, 4, 5]
 ```
 
@@ -62,17 +63,25 @@ var dependencies = new ValueTuple<int, int>[]
     (3, 4),
     (4, 5),
 }
-var sorter = new TopologicalSorter<int>();
-var sorted = sorter.Sort(dependencies);
+var sorted = dependencies.TopoOrdered().ToList();
 // sorted will be [1, 2, 3, 4, 5]
 ```
+# IEqualityComparer and IComparer
+
+The methods all have two optional arguments:
+
+* `IEqualityComparer<T> equalityComparer` which will be used to determine if vertice values being used are the same.
+  This defaults to `EqualityComparer<T>.Default` if no specific equality comparer is being specified.
+* `IComparer<T> comparer` which will be used to determine the order of vertices that are otherwise unrelated. This defaults to
+  `Comparer<T>.Default` if no specific comparer is being specified. See more about this at the bottom of the notes
+  section.
 
 # Notes and remarks
 
-* Values will not be duplicated, and each value in the dependency graph is produced just once
-  in the final result. There is no support for having duplicate values. **However**, given
+* Vertices will not be duplicated, and each vertice in the dependency graph is produced just once
+  in the final result. There is no support for having duplicate vertices. **However**, given
   that a `IEqualityComparer<T>` is involved, this can be mimicked with a custom made implementation.
-* There is no built-in support for vertices not involved in any dependencies. Loose values
+* There is no built-in support for vertices not involved in any dependencies. Loose vertices
   will have to be handled outside of these ordering methods.
 * Distinct dependencies, ie. dependencies that have no bearing on each other, will result
   in an output that contains all the dependencies together, before all the dependents together.
@@ -92,10 +101,19 @@ var sorted = sorter.Sort(dependencies);
    |    +- dependents
    +- dependencies
 
-The optional `IComparer<T>` comparer instance that can be specified allows the individual values, when they are unrelated,
-to have an order.
+The way these values are output is that the algorithm finds first the group of values that is `1` and `3`,
+then outputs those, and then afterwards it finds `2` and `4` and outputs those.
 
-In other words, it is possible for the above example to output the values as `[3, 1, 4, 2]`, if a comparer is
-specified that reverses the default ordering of the integers. However, it will *not* impact the ordering of
-the dependencies, so there is no way using the comparer to get the `2` or the `4` to appear before the `1` or the `3`,
-as this is a guarantee by the topological sort algorithm that the dependencies will always appear before their dependents.
+Each of these sets contain vertices that are otherwise unrelated (ie. there is no relationship between
+`1` and `3`), and in this case, the optional `IComparer<T>` instance, if specified, can be used to determine
+the final output ordering of all the values in a given set.
+
+Given an `IComparer<int>` implementation that results in a reversed order, it would thus be possible to
+get the following output instead:
+
+```
+3, 1, 4, 2
+```
+
+however, the edge dependencies are what guarantees that `1` comes before `2` and that `3` comes before `4`,
+and nothing the `IComparer<T>` instance does till change that.
