@@ -89,6 +89,10 @@ var sorted = sorter.Sort(dependencies);
    |    +- dependents
    +- dependencies
 
-There is a soft guarantee about the ordering of these, as `EqualityComparer<T>.Default` will
-be used to order the individual values that are unrelated. In other words, the above example
-will *not* result in `[3, 1, 4, 2]`.
+The optional `IComparer<T>` comparer instance that can be specified allows the individual values, when they are unrelated,
+to have an order.
+
+In other words, it is possible for the above example to output the values as `[3, 1, 4, 2]`, if a comparer is
+specified that reverses the default ordering of the integers. However, it will *not* impact the ordering of
+the dependencies, so there is no way using the comparer to get the `2` or the `4` to appear before the `1` or the `3`,
+as this is a guarantee by the topological sort algorithm that the dependencies will always appear before their dependents.
