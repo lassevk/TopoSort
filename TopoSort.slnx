@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TopoSort.Tests/TopoSort.Tests.csproj" />
+  <Project Path="TopoSort/TopoSort.csproj" />
+</Solution>
