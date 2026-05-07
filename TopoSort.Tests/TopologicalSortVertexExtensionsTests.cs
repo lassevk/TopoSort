@@ -1,6 +1,6 @@
 namespace TopoSort.Tests;
 
-public class TopologicalSortVerticeExtensionsTests
+public class TopologicalSortVertexExtensionsTests
 {
     [TestCase(2, 1, 1, 2)]
     [TestCase(1, 2, 2, 1)]

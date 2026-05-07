@@ -6,7 +6,7 @@ in the ordering.
 
 The package provides a set of extension methods that does this ordering.
 
-***Note:*** Portions of this library was added by AI, given that I have an IDE that uses AI-style autocompletion.
+***Note:*** Portions of this library were added by AI, given that I have an IDE that uses AI-style autocompletion.
 There is *however*, no portion of it not vetted by me.
 
 ## Installation
@@ -14,7 +14,7 @@ There is *however*, no portion of it not vetted by me.
 You can install the package from the command line, using `dotnet`:
 
 ```bash
-dotnet add package MedallionTopologicalSort
+dotnet add package TopoSort
 ```
 
 Or you can use your favorite IDE which should have a Nuget package manager built in.
@@ -37,23 +37,23 @@ This follows the official supported versions policies from Microsoft:
 ## Usage
 
 The project relies on the code providing the added methods with a list of dependencies,
-indicating which values follows from which other values (dependents depends on dependencies).
+indicating which values follow from which other values (dependents depends on dependencies).
 
-You can specify the dependencies in a variety of ways, including using the `TopologicalSortDependency` class or tuples.
+You can specify the dependencies in a variety of ways, including using the `TopologicalSortEdge` class or tuples.
 
 ```csharp
 var dependencies = [
-    new TopologicalSortDependency<int>(1, 2),
-    new TopologicalSortDependency<int>(2, 3),
-    new TopologicalSortDependency<int>(3, 4),
-    new TopologicalSortDependency<int>(4, 5),
+    new TopologicalSortEdge<int>(1, 2),
+    new TopologicalSortEdge<int>(2, 3),
+    new TopologicalSortEdge<int>(3, 4),
+    new TopologicalSortEdge<int>(4, 5),
 ];
 var sorted = dependencies.Ordered().ToList();
 // sorted will be [1, 2, 3, 4, 5]
 ```
 
-When using `ValueTuple<T1, T2>` or `Tuple<T1, T2>`, in order to not coflict with existing
-sorting methods in .NET, here the name of the method will be `TopoOrdered`, like this:
+When using `ValueTuple<T1, T2>` or `Tuple<T1, T2>`, in order to not conflict with existing
+sorting methods in .NET, the name of the method will be `TopoOrdered`, like this:
 
 ```csharp
 var dependencies = new ValueTuple<int, int>[]
@@ -70,7 +70,7 @@ var sorted = dependencies.TopoOrdered().ToList();
 
 The methods all have two optional arguments:
 
-* `IEqualityComparer<T> equalityComparer` which will be used to determine if vertice values being used are the same.
+* `IEqualityComparer<T> equalityComparer` which will be used to determine if vertex values being used are the same.
   This defaults to `EqualityComparer<T>.Default` if no specific equality comparer is being specified.
 * `IComparer<T> comparer` which will be used to determine the order of vertices that are otherwise unrelated. This defaults to
   `Comparer<T>.Default` if no specific comparer is being specified. See more about this at the bottom of the notes
@@ -78,7 +78,7 @@ The methods all have two optional arguments:
 
 # Notes and remarks
 
-* Vertices will not be duplicated, and each vertice in the dependency graph is produced just once
+* Vertices will not be duplicated, and each vertex in the dependency graph are produced just once
   in the final result. There is no support for having duplicate vertices. **However**, given
   that a `IEqualityComparer<T>` is involved, this can be mimicked with a custom made implementation.
 * There is no built-in support for vertices not involved in any dependencies. Loose vertices
@@ -118,4 +118,4 @@ get the following output instead:
 ```
 
 however, the edge dependencies are what guarantees that `1` comes before `2` and that `3` comes before `4`,
-and nothing the `IComparer<T>` instance does till change that.
+and nothing the `IComparer<T>` instance does will change that.
