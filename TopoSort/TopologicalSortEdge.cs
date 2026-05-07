@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace TopoSort;
 
 /// <summary>
-/// Statis class for helper methods for creating <see cref="TopologicalSortEdge{T}"/>.
+/// Static class for helper methods for creating <see cref="TopologicalSortEdge{T}"/>.
 /// </summary>
 public static class TopologicalSortEdge
 {
