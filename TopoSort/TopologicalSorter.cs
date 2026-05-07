@@ -82,6 +82,7 @@ internal class TopologicalSorter
     }
 
 #if !NET8_0_OR_GREATER
+    // ReSharper disable CanSimplifyDictionaryLookupWithTryAdd
     private static void TryAddDegree<T>(Dictionary<T, int> inDegree, T depDependent)
         where T : notnull
     {
@@ -90,5 +91,6 @@ internal class TopologicalSorter
             inDegree.Add(depDependent, 0);
         }
     }
+    // ReSharper restore CanSimplifyDictionaryLookupWithTryAdd
 #endif
 }
