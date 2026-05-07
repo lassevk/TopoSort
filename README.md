@@ -83,6 +83,8 @@ The methods all have two optional arguments:
   that a `IEqualityComparer<T>` is involved, this can be mimicked with a custom made implementation.
 * There is no built-in support for vertices not involved in any dependencies. Loose vertices
   will have to be handled outside of these ordering methods.
+* Cycles in the graph will result in an `InvalidOperationException` being thrown. This involves multi-vertex
+  cycles, such as `1-->2, 2-->3, 3-->1`, as well a self-referencing edges, such as `1-->1`.
 * Distinct dependencies, ie. dependencies that have no bearing on each other, will result
   in an output that contains all the dependencies together, before all the dependents together.
   In other words, the following set of dependencies:

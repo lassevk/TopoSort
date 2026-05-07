@@ -58,4 +58,11 @@ public class TopologicalSorterTests : TopologicalSorterTestsBase
 
         Assert.AreEqual(expected, result);
     }
+
+    [Test]
+    public void SingleEdgeCycle_ShouldThrow()
+    {
+        TopologicalSortEdge<int>[] edges = [new(1, 1)];
+        Assert.Throws<InvalidOperationException>(() => edges.Ordered().ToList());
+    }
 }

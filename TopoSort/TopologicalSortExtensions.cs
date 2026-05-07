@@ -18,11 +18,11 @@ public static class TopologicalSortExtensions
         /// Performs topological sorting on the collection of graph edges.
         /// </summary>
         /// <param name="equalityComparer">
-        /// Optional `IEqualityComparer{T}` to use for comparing elements, used to ensure that when vertice values are specified in various
+        /// Optional `IEqualityComparer{T}` to use for comparing elements, used to ensure that when vertex values are specified in various
         /// edge dependencies, they are compared correctly. Defaults to `EqualityComparer{T}.Default`.
         /// </param>
         /// <param name="comparer">
-        /// Optional `IComparer{T}` to use for comparing elements, used order vertice values that are otherwise unrelated, to ensure
+        /// Optional `IComparer{T}` to use for comparing elements, used order vertex values that are otherwise unrelated, to ensure
         /// a consistent ordering. Defaults to `Comparer{T}.Default`.
         /// </param>
         /// <returns>
@@ -50,11 +50,11 @@ public static class TopologicalSortExtensions
         /// Performs topological sorting on the collection of graph edges, as specified by a collection of `(T, T)` tuples.
         /// </summary>
         /// <param name="equalityComparer">
-        /// Optional `IEqualityComparer{T}` to use for comparing elements, used to ensure that when vertice values are specified in various
+        /// Optional `IEqualityComparer{T}` to use for comparing elements, used to ensure that when vertex values are specified in various
         /// edge dependencies, they are compared correctly. Defaults to `EqualityComparer{T}.Default`.
         /// </param>
         /// <param name="comparer">
-        /// Optional `IComparer{T}` to use for comparing elements, used order vertice values that are otherwise unrelated, to ensure
+        /// Optional `IComparer{T}` to use for comparing elements, used order vertex values that are otherwise unrelated, to ensure
         /// a consistent ordering. Defaults to `Comparer{T}.Default`.
         /// </param>
         /// <returns>
@@ -83,11 +83,11 @@ public static class TopologicalSortExtensions
         /// Performs topological sorting on the collection of edge dependencies, as specified by a collection of `(T, T)` tuples.
         /// </summary>
         /// <param name="equalityComparer">
-        /// Optional `IEqualityComparer{T}` to use for comparing elements, used to ensure that when vertice values are specified in various
+        /// Optional `IEqualityComparer{T}` to use for comparing elements, used to ensure that when vertex values are specified in various
         /// edge dependencies, they are compared correctly. Defaults to `EqualityComparer{T}.Default`.
         /// </param>
         /// <param name="comparer">
-        /// Optional `IComparer{T}` to use for comparing elements, used order vertice values that are otherwise unrelated, to ensure
+        /// Optional `IComparer{T}` to use for comparing elements, used order vertex values that are otherwise unrelated, to ensure
         /// a consistent ordering. Defaults to `Comparer{T}.Default`.
         /// </param>
         /// <returns>

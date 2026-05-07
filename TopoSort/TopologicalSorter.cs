@@ -1,7 +1,20 @@
 namespace TopoSort;
 
+/// <summary>
+/// Internal class that implements the topological sorting algorithm.
+/// </summary>
 internal static class TopologicalSorter
 {
+    /// <summary>
+    /// Performs topological sorting on the specified collection of edges.
+    /// </summary>
+    /// <typeparam name="T">The type of the vertices in the graph.</typeparam>
+    /// <param name="edges">The collection of directed edges representing dependencies.</param>
+    /// <param name="equalityComparer">An optional equality comparer for vertices.</param>
+    /// <param name="comparer">An optional comparer to provide a stable order for unrelated vertices.</param>
+    /// <returns>An enumerable of vertices in topological order.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="edges"/> is null.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when a cycle is detected in the dependencies.</exception>
     public static IEnumerable<T> Ordered<T>(IEnumerable<TopologicalSortEdge<T>> edges, IEqualityComparer<T>? equalityComparer = null, IComparer<T>? comparer = null)
         where T : notnull
     {
@@ -14,11 +27,13 @@ internal static class TopologicalSorter
         return all.Count switch
         {
             0 => []
-          , 1 => [all[0].Dependency, all[0].Dependent]
           , _ => OrderedImpl(all, equalityComparer ?? EqualityComparer<T>.Default, comparer ?? Comparer<T>.Default)
         };
     }
 
+    /// <summary>
+    /// Implementation of the topological sort using Kahn's algorithm.
+    /// </summary>
     private static IEnumerable<T> OrderedImpl<T>(List<TopologicalSortEdge<T>> edges, IEqualityComparer<T> equalityComparer, IComparer<T> comparer)
         where T : notnull
     {

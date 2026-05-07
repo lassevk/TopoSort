@@ -3,16 +3,16 @@ namespace TopoSort;
 /// <summary>
 /// Adds extension methods to T to build edges used with <see cref="TopologicalSortExtensions"/>.
 /// </summary>
-public static class TopologicalSortVerticeExtensions
+public static class TopologicalSortVertexExtensions
 {
-    /// <param name="dependent">The vertice value that the edge will point to.</param>
+    /// <param name="dependent">The vertex value that the edge will point to.</param>
     extension<T>(T dependent)
     {
         /// <summary>
         /// Creates a <see cref="TopologicalSortEdge{T}"/> with the value as the dependent.
         /// </summary>
         /// <param name="dependency">
-        /// The dependency for the vertice.
+        /// The dependency for the vertex.
         /// </param>
         /// <returns>
         /// A <see cref="TopologicalSortEdge{T}"/> that represents an edge dependency from
@@ -28,14 +28,14 @@ public static class TopologicalSortVerticeExtensions
         public TopologicalSortEdge<T> DependsOn(T dependency) => new(dependency, dependent);
     }
 
-    /// <param name="dependency">The vertice value that the edge will originate from.</param>
+    /// <param name="dependency">The vertex value that the edge will originate from.</param>
     extension<T>(T dependency)
     {
         /// <summary>
         /// Creates a <see cref="TopologicalSortEdge{T}"/> with the value as the dependency.
         /// </summary>
         /// <param name="dependent">
-        /// The dependency for the vertice.
+        /// The dependency for the vertex.
         /// </param>
         /// <returns>
         /// A <see cref="TopologicalSortEdge{T}"/> that represents an edge dependency from
