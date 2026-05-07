@@ -8,4 +8,12 @@ public class TopologicalSorterTests
         var sorter = new TopologicalSorter();
         Assert.Throws<ArgumentNullException>(() => sorter.Sort<int>(null!));
     }
+
+    [Test]
+    public void Sort_EmptyDependencies_ReturnsEmpty()
+    {
+        var sorter = new TopologicalSorter();
+        IEnumerable<int> result = sorter.Sort(Enumerable.Empty<TopologicalSortDependency<int>>());
+        Assert.IsEmpty(result);
+    }
 }

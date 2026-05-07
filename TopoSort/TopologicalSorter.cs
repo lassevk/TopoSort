@@ -9,6 +9,10 @@ public class TopologicalSorter
         ArgumentNullException.ThrowIfNull(dependencies);
 
         var all = dependencies.ToList();
+        if (all.Count == 0)
+        {
+            return [];
+        }
 
         throw new NotImplementedException();
     }
