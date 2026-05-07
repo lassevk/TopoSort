@@ -5,7 +5,10 @@ internal class TopologicalSorter
     public IEnumerable<T> Ordered<T>(IEnumerable<TopologicalSortDependency<T>> dependencies, IEqualityComparer<T>? comparer = null)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(dependencies);
+        if (dependencies is null)
+        {
+            throw new ArgumentNullException(nameof(dependencies));
+        }
 
         var all = dependencies.ToList();
         return all.Count switch
@@ -24,8 +27,13 @@ internal class TopologicalSorter
 
         foreach (TopologicalSortDependency<T> dep in dependencies)
         {
+#if NET8_0_OR_GREATER
             inDegree.TryAdd(dep.Dependency, 0);
             inDegree.TryAdd(dep.Dependent, 0);
+#else
+            TryAddDegree(inDegree, dep.Dependency);
+            TryAddDegree(inDegree, dep.Dependent);
+#endif
 
             if (!adjacencyList.TryGetValue(dep.Dependency, out List<T>? neighbors))
             {
@@ -72,4 +80,15 @@ internal class TopologicalSorter
             throw new InvalidOperationException("Cycle detected in dependencies.");
         }
     }
+
+#if !NET8_0_OR_GREATER
+    private static void TryAddDegree<T>(Dictionary<T, int> inDegree, T depDependent)
+        where T : notnull
+    {
+        if (!inDegree.ContainsKey(depDependent))
+        {
+            inDegree.Add(depDependent, 0);
+        }
+    }
+#endif
 }
