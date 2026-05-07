@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TopoSort\TopoSort.csproj" />
+        <ProjectReference Include="..\TopoSort\TopoSort.csproj" />
     </ItemGroup>
 
 </Project>
