@@ -16,4 +16,19 @@ public class TopologicalSorterTests
         IEnumerable<int> result = sorter.Sort(Enumerable.Empty<TopologicalSortDependency<int>>());
         Assert.IsEmpty(result);
     }
+
+    [TestCase(1, 2)]
+    [TestCase(2, 1)]
+    public void Sort_OneDependencyWithTestCases_ReturnsSameOrder(int dependency, int dependent)
+    {
+        var sorter = new TopologicalSorter();
+        IEnumerable<int> result = sorter.Sort([
+            new TopologicalSortDependency<int>(dependency, dependent),
+        ]);
+
+        Assert.AreEqual(new[]
+        {
+            dependency, dependent,
+        }, result);
+    }
 }

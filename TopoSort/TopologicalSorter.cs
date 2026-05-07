@@ -4,16 +4,16 @@ namespace TopoSort;
 
 public class TopologicalSorter
 {
-    public IEnumerable<T> Sort<T>(IEnumerable<TopologicalSortDependency<T>> dependencies)
+    public IEnumerable<T> Sort<T>(IEnumerable<TopologicalSortDependency<T>> dependencies, IEqualityComparer<T>? comparer = null)
     {
         ArgumentNullException.ThrowIfNull(dependencies);
 
         var all = dependencies.ToList();
-        if (all.Count == 0)
+        return all.Count switch
         {
-            return [];
-        }
-
-        throw new NotImplementedException();
+            0 => []
+          , 1 => [all[0].Dependency, all[0].Dependent]
+          , _ => throw new NotImplementedException()
+        };
     }
 }
