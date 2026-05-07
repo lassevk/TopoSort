@@ -103,8 +103,12 @@ public static class TopologicalSortExtensions
             => TopologicalSorter.Ordered(edges.Select(d => new TopologicalSortEdge<T>(d.Item1, d.Item2)), equalityComparer, comparer);
     }
 
-    /// <param name="dependent">The vertex value that the edge will point to.</param>
-    /// <typeparam name="T">The type of the values of the vertices of the created edge.</typeparam>
+    /// <param name="dependent">
+    /// The vertex value that the edge will point to.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type of the values of the vertices of the created edge.
+    /// </typeparam>
     extension<T>(T dependent)
     {
         /// <summary>
@@ -127,8 +131,12 @@ public static class TopologicalSortExtensions
         public TopologicalSortEdge<T> DependsOn(T dependency) => new(dependency, dependent);
     }
 
-    /// <param name="dependency">The vertex value that the edge will originate from.</param>
-    /// <typeparam name="T">The type of the values of the vertices of the created edge.</typeparam>
+    /// <param name="dependency">
+    /// The vertex value that the edge will originate from.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type of the values of the vertices of the created edge.
+    /// </typeparam>
     extension<T>(T dependency)
     {
         /// <summary>
