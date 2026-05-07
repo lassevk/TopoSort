@@ -4,6 +4,9 @@ This package adds methods and types for topological sorting, a graph algorithm t
 
 It provides a `TopologicalSorter` class that can be used to sort dependencies in a project or any other scenario where dependencies need to be resolved in a specific order.
 
+***Note:*** Portions of this library was added by AI, given that I have an IDE that uses AI-style autocompletion.
+There is *however*, no portion of it not vetted by me.
+
 ## Installation
 
 You can install the package from the command line, using `dotnet`:

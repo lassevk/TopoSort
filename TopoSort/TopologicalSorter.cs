@@ -22,50 +22,50 @@ internal static class TopologicalSorter
     private static IEnumerable<T> OrderedImpl<T>(List<TopologicalSortDependency<T>> dependencies, IEqualityComparer<T> equalityComparer, IComparer<T> comparer)
         where T : notnull
     {
-        var adjacencyList = new Dictionary<T, List<T>>(equalityComparer);
-        var inDegree = new Dictionary<T, int>(equalityComparer);
+        var graph = new Dictionary<T, List<T>>(equalityComparer);
+        var inputEdgeCount = new Dictionary<T, int>(equalityComparer);
 
         foreach (TopologicalSortDependency<T> dep in dependencies)
         {
 #if NET8_0_OR_GREATER
-            inDegree.TryAdd(dep.Dependency, 0);
-            inDegree.TryAdd(dep.Dependent, 0);
+            inputEdgeCount.TryAdd(dep.Dependency, 0);
+            inputEdgeCount.TryAdd(dep.Dependent, 0);
 #else
-            TryAddDegree(inDegree, dep.Dependency);
-            TryAddDegree(inDegree, dep.Dependent);
+            TryAddDegree(inputEdgeCount, dep.Dependency);
+            TryAddDegree(inputEdgeCount, dep.Dependent);
 #endif
 
-            if (!adjacencyList.TryGetValue(dep.Dependency, out List<T>? neighbors))
+            if (!graph.TryGetValue(dep.Dependency, out List<T>? outboundEdges))
             {
-                neighbors = new List<T>();
-                adjacencyList[dep.Dependency] = neighbors;
+                outboundEdges = new List<T>();
+                graph[dep.Dependency] = outboundEdges;
             }
 
-            neighbors.Add(dep.Dependent);
-            inDegree[dep.Dependent]++;
+            outboundEdges.Add(dep.Dependent);
+            inputEdgeCount[dep.Dependent]++;
         }
 
-        var queue = new Queue<T>();
-        foreach (KeyValuePair<T, int> kvp in inDegree)
+        var vertices = new Queue<T>();
+        foreach (KeyValuePair<T, int> kvp in inputEdgeCount)
         {
             if (kvp.Value == 0)
             {
-                queue.Enqueue(kvp.Key);
+                vertices.Enqueue(kvp.Key);
             }
         }
 
         int outputCount = 0;
-        while (queue.Count > 0)
+        while (vertices.Count > 0)
         {
 
 #if NET8_0_OR_GREATER
-            T[] batch = queue.ToArray();
+            T[] batch = vertices.ToArray();
             batch.Sort(comparer.Compare);
 #else
-            T[] batch = queue.OrderBy(x => x, comparer).ToArray();
+            T[] batch = vertices.OrderBy(x => x, comparer).ToArray();
 #endif
 
-            queue.Clear();
+            vertices.Clear();
 
             foreach (T item in batch)
             {
@@ -73,21 +73,21 @@ internal static class TopologicalSorter
 
                 outputCount++;
 
-                if (adjacencyList.TryGetValue(item, out List<T>? neighbors))
+                if (graph.TryGetValue(item, out List<T>? neighbors))
                 {
                     foreach (T v in neighbors)
                     {
-                        inDegree[v]--;
-                        if (inDegree[v] == 0)
+                        inputEdgeCount[v]--;
+                        if (inputEdgeCount[v] == 0)
                         {
-                            queue.Enqueue(v);
+                            vertices.Enqueue(v);
                         }
                     }
                 }
             }
         }
 
-        if (outputCount != inDegree.Count)
+        if (outputCount != inputEdgeCount.Count)
         {
             throw new InvalidOperationException("Cycle detected in dependencies.");
         }
