@@ -1,24 +1,105 @@
 namespace TopoSort;
 
+/// <summary>
+/// Adds extension methods to IEnumerable to perform topological sorting.
+/// </summary>
 public static class TopologicalSortExtensions
 {
-    extension<T>(IEnumerable<TopologicalSortDependency<T>> dependencies)
+    /// <param name="edges">
+    /// The edge dependencies that are used to perform topological sorting.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type of values of the vertices of the edges.
+    /// </typeparam>
+    extension<T>(IEnumerable<TopologicalSortEdge<T>> edges)
         where T : notnull
     {
-        public IEnumerable<T> Ordered(IEqualityComparer<T>? equalityComparer = null, IComparer<T>? comparer = null) => TopologicalSorter.Ordered(dependencies, equalityComparer, comparer);
+        /// <summary>
+        /// Performs topological sorting on the collection of graph edges.
+        /// </summary>
+        /// <param name="equalityComparer">
+        /// Optional `IEqualityComparer{T}` to use for comparing elements, used to ensure that when vertice values are specified in various
+        /// edge dependencies, they are compared correctly. Defaults to `EqualityComparer{T}.Default`.
+        /// </param>
+        /// <param name="comparer">
+        /// Optional `IComparer{T}` to use for comparing elements, used order vertice values that are otherwise unrelated, to ensure
+        /// a consistent ordering. Defaults to `Comparer{T}.Default`.
+        /// </param>
+        /// <returns>
+        /// A collection of vertices in topological order.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// edges is `null`.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// The collection of edges contains a cycle.
+        /// </exception>
+        public IEnumerable<T> Ordered(IEqualityComparer<T>? equalityComparer = null, IComparer<T>? comparer = null) => TopologicalSorter.Ordered(edges, equalityComparer, comparer);
     }
 
-    extension<T>(IEnumerable<ValueTuple<T, T>> dependencies)
+    /// <param name="edges">
+    /// The edge dependencies that are used to perform topological sorting.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type of values of the vertices of the edges.
+    /// </typeparam>
+    extension<T>(IEnumerable<ValueTuple<T, T>> edges)
         where T : notnull
     {
+        /// <summary>
+        /// Performs topological sorting on the collection of graph edges, as specified by a collection of `(T, T)` tuples.
+        /// </summary>
+        /// <param name="equalityComparer">
+        /// Optional `IEqualityComparer{T}` to use for comparing elements, used to ensure that when vertice values are specified in various
+        /// edge dependencies, they are compared correctly. Defaults to `EqualityComparer{T}.Default`.
+        /// </param>
+        /// <param name="comparer">
+        /// Optional `IComparer{T}` to use for comparing elements, used order vertice values that are otherwise unrelated, to ensure
+        /// a consistent ordering. Defaults to `Comparer{T}.Default`.
+        /// </param>
+        /// <returns>
+        /// A collection of vertices in topological order.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// edges is `null`.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// The collection of edges contains a cycle.
+        /// </exception>
         public IEnumerable<T> TopoOrdered(IEqualityComparer<T>? equalityComparer = null, IComparer<T>? comparer = null)
-            => TopologicalSorter.Ordered(dependencies.Select(d => new TopologicalSortDependency<T>(d.Item1, d.Item2)), equalityComparer, comparer);
+            => TopologicalSorter.Ordered(edges.Select(d => new TopologicalSortEdge<T>(d.Item1, d.Item2)), equalityComparer, comparer);
     }
 
-    extension<T>(IEnumerable<Tuple<T, T>> dependencies)
+    /// <param name="edges">
+    /// The edge dependencies that are used to perform topological sorting.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type of values of the vertices of the edges.
+    /// </typeparam>
+    extension<T>(IEnumerable<Tuple<T, T>> edges)
         where T : notnull
     {
+        /// <summary>
+        /// Performs topological sorting on the collection of edge dependencies, as specified by a collection of `(T, T)` tuples.
+        /// </summary>
+        /// <param name="equalityComparer">
+        /// Optional `IEqualityComparer{T}` to use for comparing elements, used to ensure that when vertice values are specified in various
+        /// edge dependencies, they are compared correctly. Defaults to `EqualityComparer{T}.Default`.
+        /// </param>
+        /// <param name="comparer">
+        /// Optional `IComparer{T}` to use for comparing elements, used order vertice values that are otherwise unrelated, to ensure
+        /// a consistent ordering. Defaults to `Comparer{T}.Default`.
+        /// </param>
+        /// <returns>
+        /// A collection of vertices in topological order.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// edges is `null`.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// The collection of edges contains a cycle.
+        /// </exception>
         public IEnumerable<T> TopoOrdered(IEqualityComparer<T>? equalityComparer = null, IComparer<T>? comparer = null)
-            => TopologicalSorter.Ordered(dependencies.Select(d => new TopologicalSortDependency<T>(d.Item1, d.Item2)), equalityComparer, comparer);
+            => TopologicalSorter.Ordered(edges.Select(d => new TopologicalSortEdge<T>(d.Item1, d.Item2)), equalityComparer, comparer);
     }
 }

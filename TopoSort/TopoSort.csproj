@@ -7,6 +7,14 @@
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\TopoSort.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\TopoSort.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <InternalsVisibleTo Include="TopoSort.Tests"/>
     </ItemGroup>

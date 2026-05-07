@@ -2,15 +2,15 @@ namespace TopoSort;
 
 internal static class TopologicalSorter
 {
-    public static IEnumerable<T> Ordered<T>(IEnumerable<TopologicalSortDependency<T>> dependencies, IEqualityComparer<T>? equalityComparer = null, IComparer<T>? comparer = null)
+    public static IEnumerable<T> Ordered<T>(IEnumerable<TopologicalSortEdge<T>> edges, IEqualityComparer<T>? equalityComparer = null, IComparer<T>? comparer = null)
         where T : notnull
     {
-        if (dependencies is null)
+        if (edges is null)
         {
-            throw new ArgumentNullException(nameof(dependencies));
+            throw new ArgumentNullException(nameof(edges));
         }
 
-        var all = dependencies.ToList();
+        var all = edges.ToList();
         return all.Count switch
         {
             0 => []
@@ -19,13 +19,13 @@ internal static class TopologicalSorter
         };
     }
 
-    private static IEnumerable<T> OrderedImpl<T>(List<TopologicalSortDependency<T>> dependencies, IEqualityComparer<T> equalityComparer, IComparer<T> comparer)
+    private static IEnumerable<T> OrderedImpl<T>(List<TopologicalSortEdge<T>> edges, IEqualityComparer<T> equalityComparer, IComparer<T> comparer)
         where T : notnull
     {
         var graph = new Dictionary<T, List<T>>(equalityComparer);
         var inputEdgeCount = new Dictionary<T, int>(equalityComparer);
 
-        foreach (TopologicalSortDependency<T> dep in dependencies)
+        foreach (TopologicalSortEdge<T> dep in edges)
         {
 #if NET8_0_OR_GREATER
             inputEdgeCount.TryAdd(dep.Dependency, 0);
@@ -89,7 +89,7 @@ internal static class TopologicalSorter
 
         if (outputCount != inputEdgeCount.Count)
         {
-            throw new InvalidOperationException("Cycle detected in dependencies.");
+            throw new InvalidOperationException("Cycle detected in edge dependencies.");
         }
     }
 
