@@ -1,4 +1,4 @@
-MIT License
+MIT-style license with source-distribution attribution requirement only
 
 Copyright (c) 2026 Lasse Vågsæther Karlsen
 
@@ -10,9 +10,8 @@ copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software. This only applies when the
-software is delivered as source code. Binary packages does not require any sort
-of copyright notice to accompany it.
+source-code distributions of the Software, or substantial source code portions
+of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
