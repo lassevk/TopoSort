@@ -1,4 +1,4 @@
-# TopoSort
+# LasseVK.TopoSort
 
 [![build](https://github.com/lassevk/LasseVK.TopoSort/actions/workflows/build.yml/badge.svg)](https://github.com/lassevk/LasseVK.TopoSort/actions/workflows/build.yml)
 [![codeql](https://github.com/lassevk/LasseVK.TopoSort/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/lassevk/LasseVK.TopoSort/actions/workflows/github-code-scanning/codeql)
