@@ -1,5 +1,8 @@
 # TopoSort
 
+[![build](https://github.com/lassevk/LasseVK.TopoSort/actions/workflows/build.yml/badge.svg)](https://github.com/lassevk/LasseVK.TopoSort/actions/workflows/build.yml)
+[![codeql](https://github.com/lassevk/LasseVK.TopoSort/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/lassevk/LasseVK.TopoSort/actions/workflows/github-code-scanning/codeql)
+
 This package adds methods and types for topological sorting, a graph algorithm that determines a valid ordering of
 vertices in a directed acyclic graph (DAG) such that for every directed edge (u, v), vertex u comes before vertex v
 in the ordering.
