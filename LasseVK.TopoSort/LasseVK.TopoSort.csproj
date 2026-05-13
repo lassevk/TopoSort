@@ -5,18 +5,53 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+
+        <Description>An implementation of topological sorting for .NET.</Description>
+        <Copyright>Copyright (C) Lasse V. Karlsen 2015-$([System.DateTime]::Today.ToString('yyyy')), All rights reserved</Copyright>
+        <PackageProjectUrl>https://github.com/lassevk/LasseVK.TopoSort</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/lassevk/LasseVK.TopoSort.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">True</GeneratePackageOnBuild>
+        <SignAssembly>True</SignAssembly>
+        <Authors>Lasse Vågsæther Karlsen</Authors>
+        <Product>LasseVK.TopoSort</Product>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>bin\Debug\TopoSort.xml</DocumentationFile>
+        <DefineConstants>TRACE;DEBUG</DefineConstants>
+        <DocumentationFile>bin\Debug\TopoSort.xml</DocumentationFile>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <TreatSpecificWarningsAsErrors />
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DocumentationFile>bin\Release\TopoSort.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\TopoSort.xml</DocumentationFile>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <TreatSpecificWarningsAsErrors />
     </PropertyGroup>
 
     <ItemGroup>
         <InternalsVisibleTo Include="LasseVK.TopoSort.Tests"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="MinVer" Version="7.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)"/>
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)"/>
     </ItemGroup>
 
 </Project>
