@@ -12,9 +12,13 @@ The package provides a set of extension methods that does this ordering.
 ***Note:*** Portions of this library were added by AI, given that I have an IDE that uses AI-style autocompletion.
 There is *however*, no portion of it not vetted by me.
 
-# Discord
+## Discord
 
 You can reach me through my [Discord server](https://discord.gg/xz2N2XZCV5).
+
+## Nuget package
+
+You can find the Nuget package [here](https://www.nuget.org/packages/LasseVK.TopoSort/).
 
 ## Installation
 
