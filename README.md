@@ -14,7 +14,7 @@ There is *however*, no portion of it not vetted by me.
 You can install the package from the command line, using `dotnet`:
 
 ```bash
-dotnet add package TopoSort
+dotnet add package LasseVK.TopoSort
 ```
 
 Or you can use your favorite IDE which should have a Nuget package manager built in.

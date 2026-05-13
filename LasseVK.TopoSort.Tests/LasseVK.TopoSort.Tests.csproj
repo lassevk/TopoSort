@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
+        <RootNamespace>TopoSort.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\TopoSort\TopoSort.csproj" />
+        <ProjectReference Include="..\LasseVK.TopoSort\LasseVK.TopoSort.csproj" />
     </ItemGroup>
 
 </Project>

@@ -5,6 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+        <RootNamespace>TopoSort</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -16,7 +17,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="TopoSort.Tests"/>
+        <InternalsVisibleTo Include="LasseVK.TopoSort.Tests"/>
     </ItemGroup>
 
 </Project>

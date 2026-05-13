@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="LasseVK.TopoSort.Tests\LasseVK.TopoSort.Tests.csproj" />
+  <Project Path="LasseVK.TopoSort\LasseVK.TopoSort.csproj" />
+</Solution>
