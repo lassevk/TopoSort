@@ -33,6 +33,7 @@ jobs:
           dotnet test --configuration Release --no-restore --verbosity normal
 
       - name: Publish NuGet package
+        shell: pwsh
         run: |
           foreach ($file in Get-ChildItem -Recurse -Path . -Filter *.nupkg) {
             dotnet nuget push $file --api-key "${{ secrets.NUGET_PUBLISH_TOKEN }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
