@@ -34,6 +34,9 @@ This follows the official supported versions policies from Microsoft:
 * [.NET Standard Versions](https://dotnet.microsoft.com/en-us/platform/dotnet-standard)
 * [The official .NET support policy](https://dotnet.microsoft.com/en-us/platform/support/policy)
 
+*Note:* After support for a .NET version ends, the package will still exist on nuget for use with
+that version, but I won't guarantee that updates to that version will be made.
+
 ## Usage
 
 The project relies on the code providing the added methods with a list of dependencies,
