@@ -1,4 +1,4 @@
-namespace TopoSort;
+namespace LasseVK.TopoSort;
 
 /// <summary>
 /// Internal class that implements the topological sorting algorithm.

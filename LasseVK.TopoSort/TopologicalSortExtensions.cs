@@ -1,4 +1,4 @@
-namespace TopoSort;
+namespace LasseVK.TopoSort;
 
 /// <summary>
 /// Adds extension methods to IEnumerable to perform topological sorting, and for creating edges.

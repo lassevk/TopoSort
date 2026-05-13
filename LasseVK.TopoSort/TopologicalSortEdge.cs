@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace TopoSort;
+namespace LasseVK.TopoSort;
 
 /// <summary>
 /// Static class for helper methods for creating <see cref="TopologicalSortEdge{T}"/>.

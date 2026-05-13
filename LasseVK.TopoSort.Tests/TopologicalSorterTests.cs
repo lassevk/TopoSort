@@ -1,5 +1,5 @@
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-namespace TopoSort.Tests;
+namespace LasseVK.TopoSort.Tests;
 
 public class TopologicalSorterTests : TopologicalSorterTestsBase
 {

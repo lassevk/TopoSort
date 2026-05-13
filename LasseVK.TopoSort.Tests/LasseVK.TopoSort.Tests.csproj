@@ -6,7 +6,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
-        <RootNamespace>TopoSort.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

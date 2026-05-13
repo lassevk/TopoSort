@@ -1,4 +1,4 @@
-namespace TopoSort.Tests;
+namespace LasseVK.TopoSort.Tests;
 
 public class TopologicalSortEdgeTests
 {
