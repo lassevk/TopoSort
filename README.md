@@ -12,6 +12,10 @@ The package provides a set of extension methods that does this ordering.
 ***Note:*** Portions of this library were added by AI, given that I have an IDE that uses AI-style autocompletion.
 There is *however*, no portion of it not vetted by me.
 
+# Discord
+
+You can reach me through my [Discord server](https://discord.gg/xz2N2XZCV5).
+
 ## Installation
 
 You can install the package from the command line, using `dotnet`:
