@@ -23,13 +23,13 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DefineConstants>TRACE;DEBUG</DefineConstants>
-        <DocumentationFile>bin\Debug\TopoSort.xml</DocumentationFile>
+        <DocumentationFile>bin\Debug\LasseVK.TopoSort.xml</DocumentationFile>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
         <TreatSpecificWarningsAsErrors />
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DocumentationFile>bin\Release\TopoSort.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\LasseVK.TopoSort.xml</DocumentationFile>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
         <TreatSpecificWarningsAsErrors />
     </PropertyGroup>
